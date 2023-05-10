@@ -30,7 +30,7 @@ async def mute_command_handler(msg: types.Message):
         )
         await sleep(2)
         await bot.delete_message(msg.chat.id, not_reply_message.message_id)
-        return``
+        return
 
     chat_member = await bot.get_chat_member(msg.chat.id, msg.reply_to_message.from_user.id)
     member_name = (
