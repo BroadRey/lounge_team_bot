@@ -36,6 +36,7 @@ async def weather_command_handler(msg: types.Message):
     }
 
     city = msg.get_args().split()[0]
+    city = translate(city, 'ru', 'en')
 
     weather_response = requests.get(
         'https://api.openweathermap.org/data/2.5/weather'
@@ -91,7 +92,7 @@ async def is_valid_weather_command(msg: types.Message) -> dict[str, Any]:
     msg_args = msg.get_args()
     right_format_message = (
         'Запрос на получение погоды должен иметь следующий формат:\n'
-        '/weather <название_города_на_английском_языке>'
+        '/weather <название_города>'
     )
 
     if msg_args is None:
