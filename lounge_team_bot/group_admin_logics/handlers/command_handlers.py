@@ -32,7 +32,9 @@ async def mute_command_handler(msg: types.Message):
         await bot.delete_message(msg.chat.id, not_reply_message.message_id)
         return
 
-    chat_member = await bot.get_chat_member(msg.chat.id, msg.reply_to_message.from_user.id)
+    chat_member = await bot.get_chat_member(
+        msg.chat.id, msg.reply_to_message.from_user.id
+    )
     member_name = (
         f'@{chat_member.user.username}'
         if chat_member.user.username
@@ -40,7 +42,7 @@ async def mute_command_handler(msg: types.Message):
     )
 
     if chat_member.status == 'restricted':
-        yet_restricter_message = await bot.send_message(
+        yet_restricter_message = await bot.send_message( # watch
             msg.chat.id,
             f'{member_name} уже с кляпом во рту!',
             disable_notification=True
@@ -55,7 +57,7 @@ async def mute_command_handler(msg: types.Message):
 
     await bot.restrict_chat_member(
         msg.chat.id,
-        chat_member,
+        int(chat_member),
         types.ChatPermissions(can_send_messages=False),
         until_date=unmute_time
     )

@@ -36,8 +36,7 @@ async def weather_command_handler(msg: types.Message):
     }
 
     city = msg.get_args().split()[0]
-    city = translate(city, 'ru', 'en')
-
+    city = translate(city, 'en')
     weather_response = requests.get(
         'https://api.openweathermap.org/data/2.5/weather'
         f'?q={city}&appid={WEATHER_TOKEN}&units=metric'
@@ -68,10 +67,10 @@ async def weather_command_handler(msg: types.Message):
     await bot.delete_message(msg.chat.id, msg.message_id)
 
 
-def translate(text, from_='en', to='ru') -> str:
+def translate(text, to='ru') -> str:
     from googletrans import Translator
     translator = Translator()
-    result = translator.translate(text, src=from_, dest=to)
+    result = translator.translate(text, dest=to)
     return result.text
 
 
